@@ -7,6 +7,10 @@ type Food_log {
   user_id: String
 }
 
+type KcalTotalForDate {
+  total_kcal: Int
+}
+
 """
 The following queries are just a set of examples of how to access your schema.
 Feel free to modify them or aggregate more.
@@ -25,6 +29,13 @@ type Query {
     @dbquery(
       type: "postgresql"
       query: "SELECT * FROM food_log WHERE user_id = $1 AND DATE(created_at) = $2;"
+      configuration: "postgresql_config"
+    )
+
+  KcalTotalForDate(user_id: String!, date: Date!): KcalTotalForDate
+    @dbquery(
+      type: "postgresql"
+      query: "SELECT SUM(kcal) AS total_kcal FROM food_log WHERE user_id = $1 AND DATE(created_at) = $2"
       configuration: "postgresql_config"
     )
 

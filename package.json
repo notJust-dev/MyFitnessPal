@@ -24,7 +24,8 @@
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",
     "react-native-web": "~0.19.6",
-    "typescript": "^5.3.0"
+    "typescript": "^5.3.0",
+    "expo-camera": "~14.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

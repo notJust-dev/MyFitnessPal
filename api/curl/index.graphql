@@ -87,7 +87,7 @@ type ServingSizesEntry {
 }
 
 type Query {
-  search(ingr: String): SearchResult
+  search(ingr: String, upc: String): SearchResult
     @rest(
       endpoint: "https://api.edamam.com/api/food-database/v2/parser?app_id=$app_id&app_key=$app_key"
       headers: [{ name: "accept", value: "application/json" }]
