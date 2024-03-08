@@ -11,6 +11,7 @@
   "dependencies": {
     "@apollo/client": "^3.9.6",
     "@types/react": "~18.2.45",
+    "dayjs": "^1.11.10",
     "expo": "~50.0.11",
     "expo-constants": "~15.4.5",
     "expo-linking": "~6.2.2",

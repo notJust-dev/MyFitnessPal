@@ -1,0 +1,90 @@
+type Food_log {
+  created_at: DateTime
+  food_id: String
+  id: Int!
+  kcal: Int
+  label: String
+  user_id: String
+}
+
+"""
+The following queries are just a set of examples of how to access your schema.
+Feel free to modify them or aggregate more.
+"""
+type Query {
+  " Queries for type 'Food_log' "
+  food_logByFood_id(food_id: String!): [Food_log]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "food_log"
+      configuration: "postgresql_config"
+    )
+
+  foodLogsForDate(user_id: String!, date: Date!): [Food_log]
+    @dbquery(
+      type: "postgresql"
+      query: "SELECT * FROM food_log WHERE user_id = $1 AND DATE(created_at) = $2;"
+      configuration: "postgresql_config"
+    )
+
+  food_logByFood_idAndLabel(food_id: String!, label: String!): [Food_log]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "food_log"
+      configuration: "postgresql_config"
+    )
+  food_logList: [Food_log]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "food_log"
+      configuration: "postgresql_config"
+    )
+  food_logPaginatedList(first: Int, after: Int): [Food_log]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "food_id", "id", "kcal", "label", "user_id" FROM "food_log" LIMIT $1 OFFSET $2
+      """
+      configuration: "postgresql_config"
+    )
+}
+
+"""
+The following mutations are just a set of examples of how to access your schema.
+Feel free to modify them or aggregate more.
+"""
+type Mutation {
+  " Mutations for type 'Food_log' "
+  deleteFood_log(
+    label: String!
+    food_id: String!
+    kcal: Int!
+    user_id: String!
+    id: Int!
+    created_at: DateTime!
+  ): Food_log
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "food_log"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertFood_log(
+    label: String
+    food_id: String
+    kcal: Int
+    user_id: String
+  ): Food_log
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "food_log"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+}
