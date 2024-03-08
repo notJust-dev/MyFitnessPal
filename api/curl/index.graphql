@@ -1,0 +1,96 @@
+type Food {
+  category: String
+  categoryLabel: String
+  foodId: String
+  image: String
+  knownAs: String
+  label: String
+  nutrients: Nutrients
+}
+
+type Food1 {
+  brand: String
+  category: String
+  categoryLabel: String
+  foodContentsLabel: String
+  foodId: String
+  image: String
+  knownAs: String
+  label: String
+  nutrients: Nutrients1
+  servingSizes: [ServingSizesEntry]
+  servingsPerContainer: Int
+}
+
+type HintsEntry {
+  food: Food1
+  measures: [MeasuresEntry]
+}
+
+type Links {
+  next: Next
+}
+
+type MeasuresEntry {
+  label: String
+  qualified: [QualifiedEntry]
+  uri: String
+  weight: Float
+}
+
+type Next {
+  href: String
+  title: String
+}
+
+type Nutrients {
+  CHOCDF: Float
+  ENERC_KCAL: Int
+  FAT: Float
+  FIBTG: Float
+  PROCNT: Float
+}
+
+type Nutrients1 {
+  CHOCDF: Float
+  ENERC_KCAL: Int
+  FAT: Float
+  FIBTG: Float
+  PROCNT: Float
+}
+
+type ParsedEntry {
+  food: Food
+}
+
+type QualifiedEntry {
+  qualifiers: [QualifiersEntry]
+  weight: Int
+}
+
+type QualifiersEntry {
+  label: String
+  uri: String
+}
+
+type SearchResult {
+  _links: Links
+  hints: [HintsEntry]
+  parsed: [ParsedEntry]
+  text: String
+}
+
+type ServingSizesEntry {
+  label: String
+  quantity: Float
+  uri: String
+}
+
+type Query {
+  search(ingr: String): SearchResult
+    @rest(
+      endpoint: "https://api.edamam.com/api/food-database/v2/parser?app_id=$app_id&app_key=$app_key"
+      headers: [{ name: "accept", value: "application/json" }]
+      configuration: "edamam"
+    )
+}
